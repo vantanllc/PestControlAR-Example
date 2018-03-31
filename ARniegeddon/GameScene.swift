@@ -85,8 +85,10 @@ extension GameScene {
     
     var hitBug: SKNode?
     for node in hitNodes {
-      if node.name == "bug" {
+      if node.name == NodeType.bug.rawValue
+      || (node.name == NodeType.firebug.rawValue && hasBugSpray) {
         hitBug = node
+        hasBugSpray = false
         break
       }
     }
