@@ -99,13 +99,8 @@ private extension GameScene {
     
     for node in scene.children {
       if let node = node as? SKSpriteNode {
-        var translation = matrix_identity_float4x4
-        let positionX = node.position.x / scene.size.width
-        let positionY = node.position.y / scene.size.height
-        translation.columns.3.x = Float(positionX * gameSize.width)
-        translation.columns.3.z = -Float(positionY * gameSize.height)
-        
-        let transform = currentFrame.camera.transform * translation
+
+        let transform = currentFrame.camera.transform * getTranslation(forNode: node, inScene: scene)
         let anchor = ARAnchor(transform: transform)
         sceneView.session.add(anchor: anchor)
       }
@@ -114,9 +109,12 @@ private extension GameScene {
     isWorldSetup = true
   }
 
-  func getTranslation() -> simd_float4x4 {
+  func getTranslation(forNode node: SKSpriteNode, inScene scene: SKScene) -> simd_float4x4 {
     var translation = matrix_identity_float4x4
-    translation.columns.3.z = -0.3
+    let positionX = node.position.x / scene.size.width
+    let positionY = node.position.y / scene.size.height
+    translation.columns.3.x = Float(positionX * gameSize.width)
+    translation.columns.3.z = -Float(positionY * gameSize.height)
     return translation
   }
   
