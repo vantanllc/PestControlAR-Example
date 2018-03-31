@@ -53,6 +53,8 @@ extension GameScene {
   override func didMove(to view: SKView) {
     sight = SKSpriteNode(imageNamed: "sight")
     addChild(sight)
+    
+    srand48(Int(Date.timeIntervalSinceReferenceDate))
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -114,6 +116,7 @@ private extension GameScene {
     let positionX = node.position.x / scene.size.width
     let positionY = node.position.y / scene.size.height
     translation.columns.3.x = Float(positionX * gameSize.width)
+    translation.columns.3.y = Float(drand48() - 0.5)
     translation.columns.3.z = -Float(positionY * gameSize.height)
     return translation
   }
