@@ -75,6 +75,18 @@ extension GameScene {
 }
 
 private extension GameScene {
+  func addBugSpray(to currentFrame: ARFrame) {
+    var translation = matrix_identity_float4x4
+    translation.columns.3.x = Float(drand48() * 2 - 1)
+    translation.columns.3.z = -Float(drand48() * 2 - 1)
+    translation.columns.3.y = Float(drand48() * 2 - 0.5)
+    
+    let transform = currentFrame.camera.transform * translation
+    let anchor = Anchor(transform: transform)
+    anchor.type = .bugspray
+    sceneView.session.add(anchor: anchor)
+  }
+  
   func playActionSequence(forHitBug hitBug: SKNode?) {
     if let hitBug = hitBug,
       let anchor = sceneView.anchor(for: hitBug) {
@@ -108,6 +120,9 @@ private extension GameScene {
           let type = NodeType(rawValue: name)
           anchor.type = type
           sceneView.session.add(anchor: anchor)
+          if anchor.type == .firebug {
+            addBugSpray(to: currentFrame)
+          }
         }
       }
     }
