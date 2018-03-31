@@ -30,6 +30,12 @@
 
 import SpriteKit
 
+enum NodeType: String {
+  case bug = "bug"
+  case firebug = "firebug"
+  case bugspray = "bugspray"
+}
+
 enum Sounds {
   static let fire =      SKAction.playSoundFileNamed("sprayBug",
                                                      waitForCompletion: false)

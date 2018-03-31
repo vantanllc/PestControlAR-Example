@@ -10,9 +10,15 @@ import ARKit
 
 extension GameViewController: ARSKViewDelegate {
   func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-    let bug = SKSpriteNode(imageNamed: "bug")
-    bug.name = "bug"
-    return bug
+    var node: SKNode?
+    if let anchor = anchor as? Anchor {
+      if let type = anchor.type {
+        node = SKSpriteNode(imageNamed: type.rawValue)
+        node?.name = type.rawValue
+      }
+    }
+    
+    return node
   }
   
   func session(_ session: ARSession, didFailWithError error: Error) {

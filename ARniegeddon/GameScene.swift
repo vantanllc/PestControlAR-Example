@@ -103,8 +103,12 @@ private extension GameScene {
       if let node = node as? SKSpriteNode {
 
         let transform = currentFrame.camera.transform * getTranslation(forNode: node, inScene: scene)
-        let anchor = ARAnchor(transform: transform)
-        sceneView.session.add(anchor: anchor)
+        let anchor = Anchor(transform: transform)
+        if let name = node.name {
+          let type = NodeType(rawValue: name)
+          anchor.type = type
+          sceneView.session.add(anchor: anchor)
+        }
       }
     }
     

@@ -23,6 +23,7 @@
 		8297D5121F3487F700C42D1F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8297D5111F3487F700C42D1F /* Types.swift */; };
 		8B403A5B20702D5F004CD563 /* GameViewController+ARSKViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B403A5A20702D5F004CD563 /* GameViewController+ARSKViewDelegate.swift */; };
 		8B403A5D207036A7004CD563 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8B403A5C207036A7004CD563 /* Level1.sks */; };
+		8B403A5F20703A79004CD563 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B403A5E20703A79004CD563 /* Anchor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8297D5111F3487F700C42D1F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		8B403A5A20702D5F004CD563 /* GameViewController+ARSKViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+ARSKViewDelegate.swift"; sourceTree = "<group>"; };
 		8B403A5C207036A7004CD563 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		8B403A5E20703A79004CD563 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				8297D4FE1F34836C00C42D1F /* Sounds */,
 				8288977B1F33F3940035005F /* LaunchScreen.storyboard */,
 				8288977E1F33F3940035005F /* Info.plist */,
+				8B403A5E20703A79004CD563 /* Anchor.swift */,
 			);
 			path = ARniegeddon;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				828897751F33F3930035005F /* GameViewController.swift in Sources */,
 				8288976D1F33F3920035005F /* AppDelegate.swift in Sources */,
 				8297D5121F3487F700C42D1F /* Types.swift in Sources */,
+				8B403A5F20703A79004CD563 /* Anchor.swift in Sources */,
 				8B403A5B20702D5F004CD563 /* GameViewController+ARSKViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
