@@ -37,6 +37,8 @@ class GameScene: SKScene {
   
   var isWorldSetup = false
   var sight: SKSpriteNode!
+  
+  let gameSize = CGSize(width: 2, height: 2)
 }
 
 extension GameScene {
@@ -89,13 +91,25 @@ private extension GameScene {
   }
   
   func setUpWorld() {
-    guard let currentFrame = sceneView.session.currentFrame else {
+    guard let currentFrame = sceneView.session.currentFrame,
+      let scene = SKScene(fileNamed: "Level1")
+    else {
       return
     }
     
-    let transform = currentFrame.camera.transform * getTranslation()
-    let anchor = ARAnchor(transform: transform)
-    sceneView.session.add(anchor: anchor)
+    for node in scene.children {
+      if let node = node as? SKSpriteNode {
+        var translation = matrix_identity_float4x4
+        let positionX = node.position.x / scene.size.width
+        let positionY = node.position.y / scene.size.height
+        translation.columns.3.x = Float(positionX * gameSize.width)
+        translation.columns.3.z = -Float(positionY * gameSize.height)
+        
+        let transform = currentFrame.camera.transform * translation
+        let anchor = ARAnchor(transform: transform)
+        sceneView.session.add(anchor: anchor)
+      }
+    }
     
     isWorldSetup = true
   }
