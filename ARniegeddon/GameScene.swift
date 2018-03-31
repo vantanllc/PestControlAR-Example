@@ -66,6 +66,12 @@ extension GameScene {
     }
     
     run(Sounds.fire)
+    playActionSequence(forHitBug: hitBug)
+  }
+}
+
+private extension GameScene {
+  func playActionSequence(forHitBug hitBug: SKNode?) {
     if let hitBug = hitBug,
       let anchor = sceneView.anchor(for: hitBug) {
       let action = SKAction.run {
@@ -80,11 +86,8 @@ extension GameScene {
       let sequence = [SKAction.wait(forDuration: 0.3), group]
       hitBug.run(SKAction.sequence(sequence))
     }
-    
   }
-}
-
-private extension GameScene {
+  
   func setUpWorld() {
     guard let currentFrame = sceneView.session.currentFrame else {
       return
