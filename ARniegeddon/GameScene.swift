@@ -52,13 +52,16 @@ private extension GameScene {
       return
     }
     
-    var translation = matrix_identity_float4x4
-    translation.columns.3.z = -0.3
-    let transform = currentFrame.camera.transform * translation
-    
+    let transform = currentFrame.camera.transform * getTranslation()
     let anchor = ARAnchor(transform: transform)
     sceneView.session.add(anchor: anchor)
     
     isWorldSetup = true
+  }
+
+  func getTranslation() -> simd_float4x4 {
+    var translation = matrix_identity_float4x4
+    translation.columns.3.z = -0.3
+    return translation
   }
 }
