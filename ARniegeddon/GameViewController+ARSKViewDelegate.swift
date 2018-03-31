@@ -9,6 +9,12 @@
 import ARKit
 
 extension GameViewController: ARSKViewDelegate {
+  func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
+    let bug = SKSpriteNode(imageNamed: "bug")
+    bug.name = "bug"
+    return bug
+  }
+  
   func session(_ session: ARSession, didFailWithError error: Error) {
     print("Session Failed - probably due to lack of camera access")
   }
