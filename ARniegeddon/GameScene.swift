@@ -43,6 +43,8 @@ extension GameScene {
     if !isWorldSetup {
       setUpWorld()
     }
+    
+    addLightEstimation()
   }
 }
 
@@ -63,5 +65,22 @@ private extension GameScene {
     var translation = matrix_identity_float4x4
     translation.columns.3.z = -0.3
     return translation
+  }
+  
+  func addLightEstimation() {
+    guard let currentFrame = sceneView.session.currentFrame, let lightEstimate = currentFrame.lightEstimate else {
+      return
+    }
+    
+    let neutralIntensity: CGFloat = 1000
+    let ambientIntensity = min(lightEstimate.ambientIntensity, neutralIntensity)
+    let blendFactor = 1 - ambientIntensity / neutralIntensity
+    
+    for node in children {
+      if let bug = node as? SKSpriteNode {
+        bug.color = .black
+        bug.colorBlendFactor = blendFactor
+      }
+    }
   }
 }
