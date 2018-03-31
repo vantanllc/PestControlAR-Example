@@ -39,6 +39,13 @@ class GameScene: SKScene {
   var sight: SKSpriteNode!
   
   let gameSize = CGSize(width: 2, height: 2)
+  
+  var hasBugSpray = false {
+    didSet {
+      let sightImageName = hasBugSpray ? "bugspraySight" : "sight"
+      sight.texture = SKTexture(imageNamed: sightImageName)
+    }
+  }
 }
 
 extension GameScene {
@@ -47,7 +54,22 @@ extension GameScene {
       setUpWorld()
     }
     
-    addLightEstimation()
+    guard let currentFrame = sceneView.session.currentFrame else {
+      return
+    }
+    
+    addLightEstimationTo(frame: currentFrame)
+    
+    for anchor in currentFrame.anchors {
+      guard let node = sceneView.node(for: anchor),
+        node.name == NodeType.bugspray.rawValue else {continue}
+      
+      let distance = simd_distance(anchor.transform.columns.3, currentFrame.camera.transform.columns.3)
+      if distance < 0.1 {
+        remove(bugspray: anchor)
+        break
+      }
+    }
   }
   
   override func didMove(to view: SKView) {
@@ -75,6 +97,13 @@ extension GameScene {
 }
 
 private extension GameScene {
+  
+  func remove(bugspray anchor: ARAnchor) {
+    run(Sounds.bugspray)
+    sceneView.session.remove(anchor: anchor)
+    hasBugSpray = true
+  }
+  
   func addBugSpray(to currentFrame: ARFrame) {
     var translation = matrix_identity_float4x4
     translation.columns.3.x = Float(drand48() * 2 - 1)
@@ -140,8 +169,8 @@ private extension GameScene {
     return translation
   }
   
-  func addLightEstimation() {
-    guard let currentFrame = sceneView.session.currentFrame, let lightEstimate = currentFrame.lightEstimate else {
+  func addLightEstimationTo(frame currentFrame: ARFrame) {
+    guard let lightEstimate = currentFrame.lightEstimate else {
       return
     }
     
